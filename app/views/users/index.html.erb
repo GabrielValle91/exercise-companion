@@ -1,0 +1,14 @@
+<div class="row">
+    <% @users.each do |user| %>
+        <div class="col-sm-4">
+            <div class="card">
+                <%= image_tag("blank_profile_pic.png") %>
+                <div class="card-body">
+                    <h5 class="card-title"><%= user.email %></h5>
+                    <%= link_to "View user", user_path(user), class:"btn btn-secondary" %>
+                        <%= link_to "Add friend", user_path(user), class:"btn btn-primary" %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
