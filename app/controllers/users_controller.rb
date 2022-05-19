@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     def index
-        @users = User.all
+        redirect_to root_path if !current_user
+        @users = User.all_except(current_user)
     end
 
     def show
