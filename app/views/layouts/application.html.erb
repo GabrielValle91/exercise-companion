@@ -24,6 +24,7 @@
             <%= render "layouts/alerts" %>
         <% end %>
         <%= yield %>
+        <%= turbo_frame_tag "remote_modal", target: "_top" %>
     </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

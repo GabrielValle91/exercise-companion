@@ -1,4 +1,5 @@
 class FriendshipsController < ApplicationController
+    before_action :auth_user
 
     def new
         friendship = Friendship.new(user_id: current_user.id, friend_id: params[:friend_id])
@@ -15,5 +16,10 @@ class FriendshipsController < ApplicationController
             end
         end
         redirect_to users_path
+    end
+
+    private
+    def auth_user
+        redirect_to new_user_session_path if !user_signed_in?
     end
 end

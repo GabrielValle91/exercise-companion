@@ -8,6 +8,7 @@ class User < ApplicationRecord
     has_many :friends, through: :friendships
     has_many :received_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
     has_many :received_friends, through: :received_friendships, source: 'user'
+    has_many :exercises
 
     scope :all_except, ->(user) { where.not(id: user) }
 
@@ -25,5 +26,22 @@ class User < ApplicationRecord
 
     def get_friendship(friend)
         friendships.select { |friendship| friendship.friend_id == friend.id}
+    end
+
+    def get_visible_exercises
+        exers = exercises + get_friends_exercises + Exercise.public_exercises
+        exers.reject { |exercise| exercise.class.name != "Exercise" }
+    end
+
+    def get_friends_exercises()
+        exers = []
+        active_friends.each do |friend|
+            exers = exers | friend.friend_shared_exercises
+        end
+        exers
+    end
+
+    def friend_shared_exercises
+        exercises.select {|exercise| exercise.friends?}
     end
 end
