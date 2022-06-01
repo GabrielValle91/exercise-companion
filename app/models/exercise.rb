@@ -1,5 +1,7 @@
 class Exercise < ApplicationRecord
     belongs_to :user
+    has_many :exercise_routine_exercises
+    has_many :exercise_routines, through: :exercise_routine_exercises
 
     validates_presence_of :name
 
