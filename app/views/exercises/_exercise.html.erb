@@ -1,22 +1,9 @@
-<div id="<%= dom_id exercise %>">
-  <p>
-    <strong>Name:</strong>
-    <%= exercise.name %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= exercise.description %>
-  </p>
-
-  <p>
-    <strong>Visibility:</strong>
-    <%= exercise.visibility.titleize %>
-  </p>
-
-  <p>
-    <strong>Type:</strong>
-    <%= exercise.exercise_type.titleize %>
-  </p>
-
-</div>
+<tr id="<%= dom_id exercise %>">
+    <td><%= exercise.name %></td>
+    <td><%= exercise.description %></td>
+    <td><%= exercise.exercise_type.titleize %></td>
+    <td><%= exercise.user.full_name %></td>
+    <% if exercise.user == current_user %>
+        <td><%= button_to "Edit exercise", edit_exercise_path(exercise), method: :get, data: { turbo_frame: "exercise_modal"}, class:"btn btn-warning" %></td>
+    <% end %>
+</tr>

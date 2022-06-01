@@ -1,8 +1,7 @@
 <%= render @exercise %>
 
 <div>
-  <%#= link_to "Edit this exercise", edit_exercise_path(@exercise) %>
-  <%= button_to "Edit exercise", edit_exercise_path(@exercise), method: :get, data: { turbo_frame: "remote_modal"}, class:"btn btn-primary" %>
+  <%= button_to "Edit exercise", edit_exercise_path(@exercise), method: :get, data: { turbo_frame: "exercise_modal"}, class:"btn btn-primary" %>
   <%= link_to "Back to exercises", exercises_path %>
 
   <%= button_to "Destroy this exercise", @exercise, method: :delete %>
