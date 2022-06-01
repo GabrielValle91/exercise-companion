@@ -9,5 +9,5 @@ class Exercise < ApplicationRecord
     enum exercise_type: {anaerobic: 0, aerobic: 1}
 
     scope :public_exercises, ->() {where(visibility: 2)}
-
+    scope :friend_exercises, ->(user) {where(user_id: user.id, visibility: 1)}
 end

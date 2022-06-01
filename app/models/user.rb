@@ -42,6 +42,24 @@ class User < ApplicationRecord
     end
 
     def friend_shared_exercises
-        exercises.select {|exercise| exercise.friends?}
+        # exercises.select {|exercise| exercise.friends?}
+        Exercise.friend_exercises(self)
+    end
+
+    def get_visible_exercise_routines
+        routines = exercise_routines + get_friends_exercise_routines + ExerciseRoutine.public_exercise_routines
+        routines.reject { |routine| routine.class.name != "ExerciseRoutine" }
+    end
+
+    def get_friends_exercise_routines()
+        exers = []
+        active_friends.each do |friend|
+            exers = exers | friend.friend_shared_exercise_routines
+        end
+        exers
+    end
+
+    def friend_shared_exercise_routines
+        ExerciseRoutine.friend_exercises(self)
     end
 end
