@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_20_160933) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_01_173340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exercise_routines", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "visibility", default: 0
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_exercise_routines_on_name"
+  end
 
   create_table "exercises", force: :cascade do |t|
     t.string "name"
