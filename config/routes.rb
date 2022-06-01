@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     root 'home#index'
     devise_for :users, controllers: { sessions: "user/sessions"}
     resources :users, only: [:index, :show]
+    resources :exercise_routines
     resources :exercises, except: [:destroy]
     resources :friendships, only: [:new, :destroy]
     get 'home/index'

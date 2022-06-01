@@ -3,13 +3,11 @@
 one:
     name: MyString
     description: MyString
-    user_id: 1
     visibility: 0
-    type: 0
+    user_id: 1
 
 two:
     name: MyString
     description: MyString
-    user_id: 1
     visibility: 0
-    type: 0
+    user_id: 1
