@@ -1,6 +1,7 @@
 class ExercisesController < ApplicationController
     before_action :auth_user
-    before_action :verify_user, only: [:show, :edit, :update]
+    before_action :check_user_visibility, only: [:show]
+    before_action :verify_user, only: [:edit, :update]
 
     # GET /exercises or /exercises.json
     def index
@@ -79,5 +80,10 @@ class ExercisesController < ApplicationController
     def verify_user
         set_exercise
         redirect_to root_path if @exercise.user != current_user
+    end
+
+    def check_user_visibility
+        set_exercise
+        redirect_to root_path if !current_user.get_visible_exercises.include?(@exercise)
     end
 end

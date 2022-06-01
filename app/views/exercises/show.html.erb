@@ -1,8 +1,43 @@
-<%= render @exercise %>
+<div id="<%= dom_id @exercise %>" class="card border-secondary">
+    <h4 class="card-header"> <%= @exercise.name %> </h4>
+    <div class="card-body">
+        <p>
+            <strong>Description:</strong>
+            <%= @exercise.description %>
+        </p>
 
-<div>
-  <%= button_to "Edit exercise", edit_exercise_path(@exercise), method: :get, data: { turbo_frame: "exercise_modal"}, class:"btn btn-primary" %>
-  <%= link_to "Back to exercises", exercises_path %>
+        <% if @exercise.user == current_user %>
+            <p>
+                <strong>Visibility:</strong>
+                <%= @exercise.visibility.titleize %>
+            </p>
+        <% end %>
 
-  <%= button_to "Destroy this exercise", @exercise, method: :delete %>
+        <p>
+            <strong>Type:</strong>
+            <%= @exercise.exercise_type.titleize %>
+        </p>
+
+        <% if @exercise.user == current_user %>
+            <p>You created this exercise </p>
+        <% else %>
+            <p>
+                <strong>Shared by:</strong>
+                <%= @exercise.user.full_name %>
+            </p>
+        <% end %>
+
+        </div>
+
+        <div class="btn-group">
+            <% if @exercise.user == current_user %>
+                <%= button_to "Edit exercise", edit_exercise_path(@exercise), method: :get, data: { turbo_frame: "exercise_modal"}, class:"btn btn-primary" %>
+            <% end %>
+            <%= button_to "Back to exercises", exercises_path, method: :get, class:"btn btn-secondary" %>
+            <% if @exercise.user == current_user %>
+                <%= button_to "Destroy this exercise", @exercise, method: :delete, class:"btn btn-danger" %>
+            <% end %>
+        </div>
+        <br/>
+    </div>
 </div>
