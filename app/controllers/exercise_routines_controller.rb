@@ -22,6 +22,7 @@ class ExerciseRoutinesController < ApplicationController
   # POST /exercise_routines or /exercise_routines.json
   def create
     @exercise_routine = ExerciseRoutine.new(exercise_routine_params)
+    @exercise_routine.user = current_user
 
     respond_to do |format|
       if @exercise_routine.save
@@ -65,6 +66,6 @@ class ExerciseRoutinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def exercise_routine_params
-      params.require(:exercise_routine).permit(:name, :description, :visibility, :user_id)
+      params.require(:exercise_routine).permit(:name, :description, :visibility)
     end
 end

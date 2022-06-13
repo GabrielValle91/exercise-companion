@@ -11,27 +11,22 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
+  <div class="field form-group">
+        <%= form.label :name %>
+        <%= form.text_field :name, autofocus: true, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.label :visibility, style: "display: block" %>
-    <%= form.number_field :visibility %>
-  </div>
-
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.number_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+    <div class="field form-group">
+        <%= form.label :description %>
+        <%= form.text_field :description, class: "form-control" %>
+    </div>
+    <br/>
+    <div class="field form-group">
+        <%= form.label :visibility %>
+        <%= form.select :visibility, options_for_select(ExerciseRoutine.visibilities.map {|key, value| [key.titleize, ExerciseRoutine.visibilities.key(value)]}, @exercise_routine.visibility), class: "form-control" %>
+    </div>
+    <br/>
+    <div>
+        <%= form.submit class:"btn btn-success" %>
+    </div>
 <% end %>

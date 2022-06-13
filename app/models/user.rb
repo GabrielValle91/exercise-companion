@@ -9,6 +9,7 @@ class User < ApplicationRecord
     has_many :received_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
     has_many :received_friends, through: :received_friendships, source: 'user'
     has_many :exercises
+    has_many :exercise_routines
 
     scope :all_except, ->(user) { where.not(id: user) }
 
