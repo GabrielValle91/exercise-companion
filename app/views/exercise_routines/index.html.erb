@@ -1,14 +1,30 @@
-<p style="color: green"><%= notice %></p>
+<h1>Exercise Routines</h1>
 
-<h1>Exercise routines</h1>
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Exercises</th>
+            <th>Shared By</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @exercise_routines.each do |er| %>
+            <tr id="<%= dom_id er %>">
+                <td><%= link_to er.name, er %></td>
+                <td><%= er.description %></td>
+                <td><%= er.exercises.size %></td>
+                <td><%= er.user.full_name %></td>
+                <td><%= button_to "View routine", exercise_routine_path(er), method: :get, class:"btn btn-sm btn-info" %></td>
+                <% if er.user == current_user %>
+                    <td><%= button_to "Edit routine", edit_exercise_routine_path(er), method: :get, data: { turbo_frame: "general_modal"}, class:"btn btn-sm btn-warning" %></td>
+                <% end %>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
 
-<div id="exercise_routines">
-  <% @exercise_routines.each do |exercise_routine| %>
-    <%= render exercise_routine %>
-    <p>
-      <%= link_to "Show this exercise routine", exercise_routine %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New exercise routine", new_exercise_routine_path %>
+<%= button_to "New exercise routine ", new_exercise_routine_path, method: :get, data: { turbo_frame: "general_modal"}, class:"btn btn-primary" %>

@@ -1,6 +1,6 @@
 class ExerciseRoutinesController < ApplicationController
     before_action :auth_user
-    before_action :verify_user, only: [ :edit :update :destroy ]
+    before_action :verify_user, only: [:edit, :update, :destroy]
 
     # GET /exercise_routines or /exercise_routines.json
     def index
