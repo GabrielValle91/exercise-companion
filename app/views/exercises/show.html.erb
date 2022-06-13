@@ -28,15 +28,15 @@
         <% end %>
 
         </div>
-
-        <div class="btn-group">
-            <% if @exercise.user == current_user %>
-                <%= button_to "Edit exercise", edit_exercise_path(@exercise), method: :get, data: { turbo_frame: "exercise_modal"}, class:"btn btn-primary" %>
-            <% end %>
-            <%= button_to "Back to exercises", exercises_path, method: :get, class:"btn btn-secondary" %>
-            <% if @exercise.user == current_user %>
-                <%= button_to "Destroy this exercise", @exercise, method: :delete, class:"btn btn-danger" %>
-            <% end %>
+        <div class="btn-toolbar">
+            <div class="btn-group me-3">
+            </div>
+            <div class="btn-group">
+                <% if @exercise.user == current_user %>
+                    <%= button_to "Edit exercise", edit_exercise_path(@exercise), method: :get, data: { turbo_frame: "general_modal"}, class:"btn btn-primary" %>
+                <% end %>
+                <%= button_to "Back to exercises", exercises_path, method: :get, class:"btn btn-secondary" %>
+            </div>
         </div>
         <br/>
     </div>
