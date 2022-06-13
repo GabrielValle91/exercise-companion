@@ -1,5 +1,5 @@
 class ExerciseRoutine < ApplicationRecord
-    has_many :exercise_routine_exercises
+    has_many :exercise_routine_exercises, -> { order(exercise_number: :asc)}
     has_many :exercises, through: :exercise_routine_exercises
     belongs_to :user
 

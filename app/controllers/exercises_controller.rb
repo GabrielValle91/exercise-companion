@@ -42,7 +42,7 @@ class ExercisesController < ApplicationController
     def update
         respond_to do |format|
         if @exercise.update(exercise_params)
-            format.html { redirect_to exercise_url(@exercise), notice: "Exercise was successfully updated." }
+            format.html { redirect_back_or_to @exercise, notice: "Exercise was successfully updated." }
             format.json { render :show, status: :ok, location: @exercise }
         else
             format.html { render :edit, status: :unprocessable_entity }
