@@ -1,10 +1,11 @@
 class ExerciseRoutinesController < ApplicationController
     before_action :auth_user
+    before_action :check_user_visibility, only: [:show]
     before_action :verify_user, only: [:edit, :update, :destroy]
 
     # GET /exercise_routines or /exercise_routines.json
     def index
-        @exercise_routines = ExerciseRoutine.all
+        @exercise_routines = current_user.get_visible_exercise_routines
     end
 
     # GET /exercise_routines/1 or /exercise_routines/1.json
@@ -77,5 +78,10 @@ class ExerciseRoutinesController < ApplicationController
     def verify_user
         set_exercise_routine
         redirect_to root_path if @exercise_routine.user != current_user
+    end
+
+    def check_user_visibility
+        set_exercise_routine
+        redirect_back_or_to root_path if !current_user.get_visible_exercise_routines.include?(@exercise_routine)
     end
 end

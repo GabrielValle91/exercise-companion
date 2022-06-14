@@ -43,7 +43,6 @@ class User < ApplicationRecord
     end
 
     def friend_shared_exercises
-        # exercises.select {|exercise| exercise.friends?}
         Exercise.friend_exercises(self)
     end
 
@@ -61,6 +60,6 @@ class User < ApplicationRecord
     end
 
     def friend_shared_exercise_routines
-        ExerciseRoutine.friend_exercises(self)
+        ExerciseRoutine.friend_exercise_routines(self)
     end
 end
