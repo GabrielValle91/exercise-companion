@@ -3,7 +3,9 @@ Rails.application.routes.draw do
     root 'home#index'
     devise_for :users, controllers: { sessions: "user/sessions"}
     resources :users, only: [:index, :show]
-    resources :exercise_routines
+    resources :exercise_routines do
+        resources :exercise_routine_exercises, only: [:new, :create]
+    end
     resources :exercises, except: [:destroy] do
         resources :exercise_routine_exercises, only: [:new, :create]
     end

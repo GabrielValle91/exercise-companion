@@ -1,14 +1,7 @@
-<%= render "layouts/general_modal", title: "Add #{@exercise.name} to Routine" do %>
-    <%= form_with(model: @exercise_routine_exercise) do |form| %>
-        <div class="field form-group">
-            Exercise Routine
-            <%= form.collection_select :exercise_routine_id, current_user.exercise_routines, :id, :name, class: "form-control" %>
-            <%= form.hidden_field :exercise_id, value: @exercise.id %>
-        </div>
-        <br/>
-        <div>
-            <%= form.submit value: "Add to routine", class:"btn btn-success" %>
-        </div>
+<%= render "layouts/general_modal", title: @exercise ? "Add #{@exercise.name} to Routine": "Add exercise  to #{@exercise_routine.name}" do %>
+    <% if @exercise %>
+        <%= render "choose_routine" %>
+    <% else %>
+        <%= render "choose_exercise" %>
     <% end %>
-
 <% end %>

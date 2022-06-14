@@ -1,0 +1,11 @@
+<%= form_with(model: @exercise_routine_exercise) do |form| %>
+    <div class="field form-group">
+        Exercise Routine
+        <%= form.collection_select :exercise_id, current_user.get_visible_exercises, :id, :name, class: "form-control" %>
+        <%= form.hidden_field :exercise_routine_id, value: @exercise_routine.id %>
+    </div>
+    <br/>
+    <div>
+        <%= form.submit value: "Add to routine", class:"btn btn-success" %>
+    </div>
+<% end %>

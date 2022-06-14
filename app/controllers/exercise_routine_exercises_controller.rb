@@ -1,10 +1,16 @@
 class ExerciseRoutineExercisesController < ApplicationController
     before_action :auth_user
     before_action :verify_user, only: [:create]
+    before_action :check_user, only: [:destroy]
 
     def new
-        @exercise_routine_exercise = ExerciseRoutineExercise.new
-        @exercise = Exercise.find_by(id: params[:exercise_id])
+        if params[:exercise_id]
+            @exercise_routine_exercise = ExerciseRoutineExercise.new
+            @exercise = Exercise.find_by(id: params[:exercise_id])
+        else
+            @exercise_routine_exercise = ExerciseRoutineExercise.new
+            @exercise_routine = ExerciseRoutine.find_by(id: params[:exercise_routine_id])
+        end
     end
 
     def create
@@ -25,6 +31,13 @@ class ExerciseRoutineExercisesController < ApplicationController
         end
     end
 
+    def destroy
+        er = @exercise_routine_exercise.exercise_routine
+        er.remove_exercise_from_routine(@exercise_routine_exercise.exercise_number)
+        @exercise_routine_exercise.destroy
+        redirect_to exercise_routine_path(er)
+    end
+
     private
 
     def auth_user
@@ -43,6 +56,10 @@ class ExerciseRoutineExercisesController < ApplicationController
         @exercise_routine = ExerciseRoutine.find_by(id: exercise_routine_exercise_params[:exercise_routine_id])
     end
 
+    def set_exercise_routine_exercise
+        @exercise_routine_exercise = ExerciseRoutineExercise.find_by(id: params[:id])
+    end
+
     def verify_user
         set_exercise_routine
         redirect_back_or_to root_path if !@exercise_routine
@@ -50,5 +67,12 @@ class ExerciseRoutineExercisesController < ApplicationController
         redirect_back_or_to root_path if !@exercise
         redirect_back_or_to root_path if current_user != @exercise_routine.user
         redirect_back_or_to root_path if !current_user.get_visible_exercises.include?(@exercise)
+    end
+
+    def check_user
+        set_exercise_routine_exercise
+        redirect_back_or_to root_path if !@exercise_routine_exercise
+        exercise_routine = ExerciseRoutine.find_by(id: @exercise_routine_exercise.exercise_routine_id)
+        redirect_back_or_to root_path if current_user != exercise_routine.user
     end
 end
